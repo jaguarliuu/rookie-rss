@@ -1,0 +1,42 @@
+version: 0.0.1
+type: plugin
+author: jaguarliuu
+name: rookie_rss
+label:
+  en_US: rookie_rss
+  ja_JP: rookie_rss
+  zh_Hans: rookie_rss
+  pt_BR: rookie_rss
+description:
+  en_US: rookie rss 多平台新闻聚合插件
+  ja_JP: rookie rss 多平台新闻聚合插件
+  zh_Hans: rookie rss 多平台新闻聚合插件
+  pt_BR: rookie rss 多平台新闻聚合插件
+icon: rss.svg
+resource:
+  memory: 268435456
+  permission:
+    tool:
+      enabled: true
+    endpoint:
+      enabled: true
+    app:
+      enabled: true
+    storage:
+      enabled: true
+      size: 1048576
+plugins:
+  tools:
+    - provider/rookie_rss.yaml
+meta:
+  version: 0.0.1
+  arch:
+    - amd64
+    - arm64
+  runner:
+    language: python
+    version: "3.12"
+    entrypoint: main
+created_at: 2025-03-04T16:08:21.851646512+08:00
+privacy: PRIVACY.md
+verified: false
