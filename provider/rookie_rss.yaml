@@ -14,7 +14,7 @@ credentials_for_provider:
   daily_hot_url:
     type: text-input
     required: false
-    default: https://hot.imsyy.top/
+    default: https://api-hot.imsyy.top/
     label:
       en_US: Daily Hot URL
       zh_Hans: 每日热榜 URL
