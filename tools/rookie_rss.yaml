@@ -15,7 +15,7 @@ parameters:
   - name: platform
     type: select
     required: true
-    form: form
+    form: llm
     description: 平台名称
     llm_description: 平台名称
     human_description: 
@@ -65,8 +65,8 @@ parameters:
     type: number
     required: true
     min: 1
-    max: 10
-    form: form
+    max: 100
+    form: llm
     description: 返回结果数量
     llm_description:  返回结果数量
     human_description: 
