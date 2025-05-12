@@ -10,13 +10,18 @@ class RookieRssTool(Tool):
         try:
             # 1. 参数校验与类型转换
             base_url: str = self.runtime.credentials["daily_hot_url"]
-            platform: str = self._get_required_param(tool_parameters, "platform", str)
+            # 获取原始 platform 参数
+            raw_platform: str = self._get_required_param(tool_parameters, "platform", str)
+            
+            # 新增：转换为拼音（兼容中英文混合输入）
+            from pypinyin import lazy_pinyin
+            platform = ''.join(lazy_pinyin(raw_platform)).lower()  # 统一转小写
             result_type: str = tool_parameters.get("result_type", "json")
             result_type: str = "json"
             result_num: int = int(tool_parameters.get("result_num", 10))  # 默认取10条
 
             # 2. 安全构建URL
-            endpoint = f"/{platform.strip('/')}"
+            endpoint = f"/{platform.strip('/')}"  # 使用转换后的拼音
             query_params = {
                 "rss": "true" if result_type.lower() == "rss" else None,
                 "limit": result_num
@@ -32,6 +37,9 @@ class RookieRssTool(Tool):
 
             print(f"Invoke RookieRssTool with {full_url}")
             # 3. 带异常处理的HTTP请求
+            from requests.utils import requote_uri
+            full_url = requote_uri(full_url)
+            print(f"Full URL: {full_url}")
             response = requests.get(
                 full_url,
                 headers={"User-Agent": "Dify-RookieRssTool/1.0"},
@@ -41,7 +49,6 @@ class RookieRssTool(Tool):
 
             # 4. 响应数据解析
             data = response.json()
-            print(data)
             
             # 5. 返回标准化数据结构
             yield self.create_json_message({
